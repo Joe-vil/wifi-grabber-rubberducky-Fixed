@@ -1,5 +1,6 @@
 # Local-&-Email-wifi-grabber-rubberducky
 -Email Script fixed and reworked by Joe'vil, based on the code of Siem TTommy
+
 -Local Script made by Joe'Vil
 
 I am not responsible for any misuse of this script, you may only use on on your own system or if you have permission of use on others.
